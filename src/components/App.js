@@ -1,23 +1,17 @@
 import React from 'react'
 import logo from 'assets/santa-claus.png'
+import WishListView from './WishListView'
 
-function App () {
+function App ({
+  wishList
+}) {
   return (
     <div className='App'>
       <header className='App-header'>
         <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h1>Learn React</h1>
-        </a>
+        <h1 className='App-title'>WishList</h1>
       </header>
+      <WishListView wishList={wishList} />
     </div>
   )
 }
