@@ -17,6 +17,9 @@
     "eject": "react-scripts eject",
     "lint": "standard"
   },
+  "standard": {
+    "parser": "babel-eslint"
+  },
   "eslintConfig": {
     "extends": "react-app",
     "react": {
