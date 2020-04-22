@@ -32,6 +32,7 @@ class WishListItemView extends Component {
                 <span>{item.price}</span>
                 <span>
                   <button onClick={this.handleEditToggle}>✏</button>
+                  <button onClick={item.remove}>❎</button>
                 </span>
               </>
             )
