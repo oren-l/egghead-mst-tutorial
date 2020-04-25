@@ -4,11 +4,11 @@ import 'assets/index.css'
 import App from './components/App'
 import * as serviceWorker from './serviceWorker'
 
-import { onSnapshot } from 'mobx-state-tree'
+import { onSnapshot, getSnapshot } from 'mobx-state-tree'
 
 import { WishList } from 'models/WishList'
 
-let initialState = {
+const initialState = {
   items: [
     {
       name: 'LEGO Mindstorms EV3',
@@ -24,27 +24,36 @@ let initialState = {
   ]
 }
 
-if (localStorage.getItem('wishlistapp')) {
-  const json = JSON.parse(localStorage.getItem('wishlistapp'))
-  if (WishList.is(json)) {
-    initialState = json
-  }
+let wishList = WishList.create(initialState)
+
+function renderApp () {
+  return ReactDOM.render(
+    <React.StrictMode>
+      <App wishList={wishList} />
+    </React.StrictMode>,
+    document.getElementById('root')
+  )
 }
 
-const wishList = WishList.create(initialState)
+renderApp()
 
-onSnapshot(wishList, (snapshot) => {
-  localStorage.setItem('wishlistapp', JSON.stringify(snapshot))
-})
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App wishList={wishList} />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+console.log('loaded!', module.hot)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister()
+
+if (module.hot) {
+  module.hot.accept(['./components/App'], () => {
+    // new component
+    renderApp()
+  })
+
+  module.hot.accept(['./models/WishList.js'], () => {
+    // new model definitions
+    const snapshot = getSnapshot(wishList)
+    wishList = WishList.create(snapshot)
+    renderApp()
+  })
+}

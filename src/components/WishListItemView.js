@@ -29,7 +29,7 @@ class WishListItemView extends Component {
               <>
                 {item.image && <img src={item.image} />}
                 <h3>{item.name}</h3>
-                <span>{item.price}</span>
+                <span>{item.price} $</span>
                 <span>
                   <button onClick={this.handleEditToggle}>✏</button>
                   <button onClick={item.remove}>❎</button>
