@@ -13,7 +13,7 @@ const WishListView = ({ wishList }) => (
         ))
       }
     </ul>
-    {`Total: ${wishList.totalPrice} €`}
+    {`Total: ${wishList.totalPrice} $`}
     <WishListItemEntry wishList={wishList} />
   </div>
 )
