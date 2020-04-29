@@ -32,7 +32,13 @@ function App ({
       </select>
       {
         selectedUser && (
-          <WishListView wishList={selectedUser.wishList} />
+          <>
+            <WishListView wishList={selectedUser.wishList} />
+            <button
+              onClick={selectedUser.getSuggestions}
+            >Suggestions
+            </button>
+          </>
         )
       }
     </div>

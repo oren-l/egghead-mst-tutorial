@@ -1,4 +1,8 @@
 {
   "javascript.validate.enable": false,
-  "standard.autoFixOnSave": true
+  "standard.enable": true,
+  "standard.autoFixOnSave": true,
+  "standard.usePackageJson": false,
+  "cSpell.words": [
+  ]
 }
