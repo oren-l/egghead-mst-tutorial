@@ -1,4 +1,4 @@
-import { types, flow, applySnapshot } from 'mobx-state-tree'
+import { types, flow, applySnapshot, getSnapshot, onSnapshot } from 'mobx-state-tree'
 
 import { WishList } from './WishList'
 
@@ -11,11 +11,28 @@ const User = types
     recipient: types.maybe(types.reference(types.late(() => User)))
   })
   .actions((self) => ({
-    getSuggestions: flow(function * () {
+    getSuggestions: flow(function * save () {
       const res = yield window.fetch(`http://localhost:3001/suggestions_${self.gender}`)
       const data = yield res.json()
       self.wishList.items.push(...data)
-    })
+    }),
+    save: flow(function * save () {
+      try {
+        const data = getSnapshot(self)
+        yield window.fetch(`http://localhost:3001/users/${self.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+      } catch (error) {
+        console.error('Uh oh, failed to save:', error)
+      }
+    }),
+    afterCreate () {
+      onSnapshot(self, self.save)
+    }
   }))
 
 export const Group = types
@@ -33,13 +50,17 @@ export const Group = types
         controller = window.AbortController && new window.AbortController()
         try {
           const res = yield window.fetch('http://localhost:3001/users', {
-            signal: controller.signal
+            signal: controller && controller.signal
           })
           const data = yield res.json()
-          applySnapshot(self.users, data)
+          const dataAsObj = data.reduce(
+            (obj, user) => ({ ...obj, [user.id]: user }),
+            {}
+          )
+          applySnapshot(self.users, dataAsObj)
           console.log('success')
         } catch (error) {
-          console.log('aborted request', error.name)
+          console.error('aborted request', error)
         }
       }),
       reload () {

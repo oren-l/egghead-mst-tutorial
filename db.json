@@ -23,31 +23,73 @@
       "image": "https://images-na.ssl-images-amazon.com/images/I/71CpQw%2BufNL._SL1000_.jpg"
     }
   ],
-  "users": {
-    "a342": {
+  "users": [
+    {
       "id": "a342",
       "name": "Homer",
-      "gender": "m"
+      "gender": "m",
+      "wishList": {
+        "items": [
+          {
+            "name": "Machine Gun Preacher",
+            "price": 7.35,
+            "image": "https://images-na.ssl-images-amazon.com/images/I/91AFFK9fwkL._SY445_.jpg"
+          },
+          {
+            "name": "Chocolate letter",
+            "price": 2,
+            "image": ""
+          },
+          {
+            "name": "LEGO Mindstorms EV3",
+            "price": 349.95,
+            "image": "https://images-na.ssl-images-amazon.com/images/I/71CpQw%2BufNL._SL1000_.jpg"
+          }
+        ]
+      },
+      "recipient": "ba32"
     },
-    "5fc2": {
+    {
       "id": "5fc2",
       "name": "Marge",
-      "gender": "f"
+      "gender": "f",
+      "wishList": {
+        "items": []
+      },
+      "recipient": "65aa"
     },
-    "663b": {
+    {
       "id": "663b",
       "name": "Bart",
-      "gender": "m"
+      "gender": "m",
+      "wishList": {
+        "items": []
+      },
+      "recipient": "a342"
     },
-    "65aa": {
+    {
       "id": "65aa",
       "name": "Maggie",
-      "gender": "f"
+      "gender": "f",
+      "wishList": {
+        "items": []
+      },
+      "recipient": "5fc2"
     },
-    "ba32": {
+    {
       "id": "ba32",
       "name": "Lisa",
-      "gender": "f"
+      "gender": "f",
+      "wishList": {
+        "items": [
+          {
+            "name": "Computer Super Duper",
+            "price": 499.99,
+            "image": ""
+          }
+        ]
+      },
+      "recipient": "663b"
     }
-  }
+  ]
 }
